@@ -11,7 +11,8 @@ while( $row = mysqli_fetch_array($result) ) {
 $article = array('title' => 'Welcome', 'description' => 'Hello, web!');
 
 if(isset($_GET['id'])) {
-	$sql = "SELECT * FROM topic WHERE id={$_GET['id']}";
+	$filtered_id = mysqli_real_escape_string($conn, $_GET['id']);
+	$sql = "SELECT * FROM topic WHERE id={$filtered_id}";
 	$result = mysqli_query($conn, $sql);
 	$row = mysqli_fetch_array($result);
 	$article['title'] = $row['title'];
