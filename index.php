@@ -44,6 +44,7 @@ if(isset($_GET['id'])) {
 	</head>
   	<body>
     	<h1><a href="index.php">WEB</a></h1>
+		<a href="author.php">author</a>
     	<ol>
       		<?= $list ?>
     	</ol>
