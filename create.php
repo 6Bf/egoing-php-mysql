@@ -1,5 +1,6 @@
 <?php
 require_once("connect_db.php");
+
 $sql = "SELECT * FROM topic";
 $result = mysqli_query($conn, $sql);
 $list = '';
@@ -8,7 +9,16 @@ while( $row = mysqli_fetch_array($result) ) {
 	$escaped_title = htmlspecialchars($row['title']);
 	$list = $list . "<li><a href=\"index.php?id={$row['id']}\">{$escaped_title}</a></li>";
 }
+	
+$sql = "SELECT * FROM author";
+$result = mysqli_query($conn, $sql);
+$select_form = '<select name="author_id">';
+while( $row = mysqli_fetch_array($result) ) {
+	$select_form .= '<option value="' .$row['id']. '">' .$row['name']. '</option>';
+}
+$select_form .= '</select>';
 ?>
+
 <!doctype html>
 <html>
 	<head>
@@ -23,6 +33,9 @@ while( $row = mysqli_fetch_array($result) ) {
     	<form action="process_create.php" method="POST">
     		<div><input type="text" name="title" placeholder="title"></div><br/>
 			<div><textarea name="description" placeholder="description"></textarea></div><br/>
+			<p>
+				<?= $select_form ?>
+			</p>
       		<div><input type="submit"></div>
     	</form>
 	</body>
