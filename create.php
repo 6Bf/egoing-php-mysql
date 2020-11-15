@@ -1,15 +1,7 @@
 <?php
 require_once("connect_db.php");
+require_once("print_topic_items.php");
 
-$sql = "SELECT * FROM topic";
-$result = mysqli_query($conn, $sql);
-$list = '';
-
-while( $row = mysqli_fetch_array($result) ) {
-	$escaped_title = htmlspecialchars($row['title']);
-	$list = $list . "<li><a href=\"index.php?id={$row['id']}\">{$escaped_title}</a></li>";
-}
-	
 $sql = "SELECT * FROM author";
 $result = mysqli_query($conn, $sql);
 $select_form = '<select name="author_id">';
@@ -28,7 +20,7 @@ $select_form .= '</select>';
   	<body>
     	<h1><a href="index.php">WEB</a></h1>
     	<ol>
-			<?= $list ?>
+			<?php print_list(); ?>
     	</ol>
     	<form action="process_create.php" method="POST">
     		<div><input type="text" name="title" placeholder="title"></div><br/>
